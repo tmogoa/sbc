@@ -30,7 +30,7 @@ function App() {
                     <Route path="/boys-corner" element={<BoysCorner />} />
                     <Route path="/activities" element={<Activities />} />
                     <Route path="/contact-us" element={<ContactUs />} />
-                    <Route path="/newpost" element={<NewPost />} />
+                    <Route path="/post/:postId" element={<NewPost />} />
                     <Route path="/" element={<Home />} />
                 </Routes>
             </BrowserRouter>

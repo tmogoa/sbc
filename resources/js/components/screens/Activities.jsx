@@ -96,7 +96,7 @@ const Activities = () => {
             <Modal hidden={modalHidden}>
                 <div className="flex flex-col bg-white h-5/6 rounded-lg shadow-2xl w-6/12">
                     <div className="py-3 px-6 border-b text-sm font-medium text-gray-600 flex justify-between items-center">
-                        <span>New Acitivity</span>
+                        <span>New Activity</span>
                         <div
                             className="p-2 rounded-full border border-white hover:border-gray-200 text-red-500"
                             onClick={() => setModalHidden(true)}

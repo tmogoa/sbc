@@ -5,11 +5,7 @@ import DOMPurify from "dompurify";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 
-const TextEditor = () => {
-    const [content, onContentStateChange] = useState(EditorState.createEmpty());
-    const [editorState, onEditorStateChange] = useState(
-        EditorState.createEmpty()
-    );
+const TextEditor = ({ editorState, onEditorStateChange, uploadCallback }) => {
     return (
         <div className="flex flex-col gap-10">
             <Editor
@@ -42,16 +38,6 @@ const TextEditor = () => {
             ></div> */}
         </div>
     );
-
-    function uploadCallback(file) {
-        return new Promise((resolve, reject) => {
-            resolve({
-                data: {
-                    link: "/storage/blog/6fgiqUZZdGL71q81kKH0RNk45VWfTSgBCtWcLbK8.jpg",
-                },
-            });
-        });
-    }
 
     function createMarkup(html) {
         return {

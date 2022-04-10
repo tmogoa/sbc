@@ -58,20 +58,13 @@ const BoysCorner = () => {
             .post("api/blogposts", params, config)
             .then((resp) => {
                 console.log(resp.data);
-                storePostId(resp.data.post.id);
                 setLoaderHidden(true);
-                navigate("/newpost");
+                navigate(`/post/${resp.data.post.id}`);
             })
             .catch((err) => {
                 console.log(err.response.data);
                 setLoaderHidden(true);
             });
-
-        navigate("/newpost");
-    }
-
-    function storePostId(id) {
-        localStorage.setItem("@postId", id);
     }
 };
 
