@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../util/AppContext";
+import { Link } from "react-router-dom";
 import Button from "../widgets/Button";
 import Navbar from "../widgets/Navbar";
 import { BsArrowRight } from "react-icons/bs";
@@ -15,22 +17,52 @@ import { FaGuitar } from "react-icons/fa";
 import { GiDramaMasks } from "react-icons/gi";
 import { BiMoviePlay } from "react-icons/bi";
 import { RiParentFill } from "react-icons/ri";
+import { format } from "date-fns";
 
 const Home = () => {
-    const [acts, setActs] = useState([
-        {
-            title: "Ngong Forest Hike",
-            body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quod vitae, officiis.  Earum quod vitae, officiis.  Earum quod vitae, officiis.  Earum quod vitae, officiis.",
-        },
-        {
-            title: "Ngong Forest Hike",
-            body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quod vitae, officiis.  Earum quod vitae, officiis.  Earum quod vitae, officiis.  Earum quod vitae, officiis.",
-        },
-        {
-            title: "Ngong Forest Hike",
-            body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum quod vitae, officiis.  Earum quod vitae, officiis.  Earum quod vitae, officiis.  Earum quod vitae, officiis.",
-        },
-    ]);
+    const { setLoaderHidden } = useContext(AppContext);
+    const [actsFuture, setActsFuture] = useState([]);
+    const [actsPast, setActsPast] = useState([]);
+
+    useEffect(() => {
+        getActivitiesFuture();
+        getActivitiesPast();
+    }, []);
+
+    function getActivitiesFuture() {
+        axios
+            .get(
+                `api/threeactivitiesfuture/${format(
+                    new Date(),
+                    "yyyy-MM-dd HH:mm:ss"
+                )}`
+            )
+            .then((resp) => {
+                console.log(resp.data);
+                setActsFuture(resp.data.data.slice());
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            });
+    }
+
+    function getActivitiesPast() {
+        axios
+            .get(
+                `api/threeactivitiespast/${format(
+                    new Date(),
+                    "yyyy-MM-dd HH:mm:ss"
+                )}`
+            )
+            .then((resp) => {
+                console.log(resp.data);
+                setActsPast(resp.data.data.slice());
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            });
+    }
+
     return (
         <div className="w-full flex flex-col">
             <div className="h-screen w-full bg-[url('../assets/img/bg.jpg')] bg-cover">
@@ -189,12 +221,25 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="bg-gray-100 h-screen">
+                <div className="bg-gray-100 flex flex-col">
                     <Banner label="Upcoming," />
                     <div className="mt-4 p-6 grid grid-flow-row grid-cols-3 gap-y-16 gap-x-16">
-                        {acts.map((act, index) => (
+                        {actsFuture.map((act, index) => (
                             <Activity key={index} data={act} />
                         ))}
+                        {actsFuture.length === 0 && (
+                            <span className="p-6 text-gray-700">
+                                There currently no upcoming activities :(
+                            </span>
+                        )}
+                    </div>
+                    <div className="flex flex-row justify-center p-6">
+                        <Link
+                            className="hover:text-orange-400 text-gray-700 p-2 border rounded border-gray-300"
+                            to="/activities"
+                        >
+                            See more
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -218,14 +263,27 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="h-screen bg-gray-100">
+            <div className="bg-gray-100">
                 <div className="flex flex-col">
                     <Banner label="Recently," />
                     <div className="mt-4 p-6 flex-grow grid grid-flow-row grid-cols-3 gap-y-16 gap-x-16">
-                        {acts.map((act, index) => (
+                        {actsPast.map((act, index) => (
                             <Activity key={index} data={act} />
                         ))}
+                        {actsPast.length === 0 && (
+                            <span className="p-6 text-gray-700">
+                                Nothing to show :(
+                            </span>
+                        )}
                     </div>
+                </div>
+                <div className="flex flex-row justify-center p-6">
+                    <Link
+                        className="hover:text-orange-400 text-gray-700 p-2 border rounded border-gray-300"
+                        to="/activities"
+                    >
+                        See more
+                    </Link>
                 </div>
             </div>
 

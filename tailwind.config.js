@@ -15,5 +15,5 @@ module.exports = {
             heading: ["Lexend"],
         },
     },
-    plugins: [],
+    plugins: [require("@tailwindcss/typography")],
 };

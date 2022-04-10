@@ -9,6 +9,11 @@ const Navbar = () => {
                 <Link to="/">SBC</Link>
             </div>
             <div className="flex-grow flex flex-row gap-6 text-base">
+                <Link to="/">
+                    <div className="px-4 rounded-3xl py-2 text-center hover:bg-orange-400 cursor-pointer">
+                        Home
+                    </div>
+                </Link>
                 <Link to="/activities">
                     <div className="px-4 rounded-3xl py-2 text-center hover:bg-orange-400 cursor-pointer">
                         Activities

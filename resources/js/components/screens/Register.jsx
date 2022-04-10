@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../util/AppContext";
 import TextInput from "../widgets/TextInput";
 import Button from "../widgets/Button";
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import colors from "../../../assets/colors";
+import axios from "axios";
 
 const Register = () => {
+    const navigate = useNavigate();
+    const { setLoaderHidden, storeSession } = useContext(AppContext);
+    const [name, setName] = useState("Tony Mogoa");
+    const [email, setEmail] = useState("tony.mogoa@strathmore.edu");
+    const [password, setPassword] = useState("12345678");
+    const [confirm, setConfirm] = useState("12345678");
+
+    const [nameError, setNameError] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     return (
         <div className="w-full p-8 flex flex-col justify-center items-center bg-gray-100">
             <div className="w-4/12 p-6 border flex flex-col items-center shadow-sm rounded mb-6 bg-white">
@@ -14,17 +27,12 @@ const Register = () => {
 
                 <div className="mb-6 w-9/12">
                     <TextInput
-                        placeholder="Firstname"
-                        label="Firstname"
+                        placeholder="Fullname"
+                        label="Fullname"
                         type="text"
-                    />
-                </div>
-
-                <div className="mb-6 w-9/12">
-                    <TextInput
-                        placeholder="Lastname"
-                        label="Lastname"
-                        type="text"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        error={nameError}
                     />
                 </div>
 
@@ -33,6 +41,9 @@ const Register = () => {
                         placeholder="Email address"
                         label="Email"
                         type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        error={emailError}
                     />
                 </div>
 
@@ -41,6 +52,9 @@ const Register = () => {
                         placeholder="New Password"
                         label="Choose a password"
                         type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        error={passwordError}
                     />
                 </div>
 
@@ -49,11 +63,13 @@ const Register = () => {
                         placeholder="Confirm password"
                         label="Repeat password"
                         type="password"
+                        value={confirm}
+                        onChange={(event) => setConfirm(event.target.value)}
                     />
                 </div>
 
                 <div className="mb-6 w-9/12">
-                    <Button label="Register" />
+                    <Button label="Register" onClick={register} />
                 </div>
             </div>
             <div className="w-4/12 flex flex-row items-center justify-end border bg-gray-50 p-4 shadow">
@@ -64,6 +80,31 @@ const Register = () => {
             </div>
         </div>
     );
+
+    function register() {
+        setLoaderHidden(false);
+        const params = new FormData();
+        params.append("name", name);
+        params.append("email", email);
+        params.append("password", password);
+        params.append("password_confirmation", confirm);
+        axios
+            .post("api/register", params)
+            .then((resp) => {
+                console.log(resp.data);
+                setLoaderHidden(true);
+                storeSession(resp.data);
+                navigate("/", { replace: true });
+            })
+            .catch((err) => {
+                console.log(err.response.data.errors);
+                const { errors } = err.response.data;
+                if (errors.email) setEmailError(errors.email);
+                if (errors.name) setNameError(errors.name);
+                if (errors.password) setPasswordError(errors.password);
+                setLoaderHidden(true);
+            });
+    }
 };
 
 export default Register;

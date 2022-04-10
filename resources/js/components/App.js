@@ -11,12 +11,17 @@ import Activities from "./screens/Activities";
 import BoysCorner from "./screens/BoysCorner";
 import PageWideSpinner from "./widgets/PageWideSpinner";
 import { AppContextProvider } from "./util/AppContext";
+import Toast from "./widgets/Toast";
+import ScrollToTop from "./util/ScrollToTop";
+import NewPost from "./screens/NewPost";
 
 function App() {
     return (
         <AppContextProvider>
             <BrowserRouter>
-                <PageWideSpinner hidden={true} />
+                <PageWideSpinner />
+                <Toast />
+                <ScrollToTop />
                 <Routes>
                     <Route path="/adminlogin" element={<Login />} />
                     <Route path="/adminregister" element={<Register />} />
@@ -25,6 +30,7 @@ function App() {
                     <Route path="/boys-corner" element={<BoysCorner />} />
                     <Route path="/activities" element={<Activities />} />
                     <Route path="/contact-us" element={<ContactUs />} />
+                    <Route path="/newpost" element={<NewPost />} />
                     <Route path="/" element={<Home />} />
                 </Routes>
             </BrowserRouter>

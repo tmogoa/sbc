@@ -37,7 +37,7 @@ class AuthController extends Controller
     public function register(Request $request){
         $validated = $request->validate([
             'name' => 'required|unique:users,name|string',
-            'email' => 'required|email|unique:users,name',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:8'
         ]);
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
-    public function logout(){
+    public function logout(Request $request){
         auth()->user()->tokens()->delete();
 
         return response([
