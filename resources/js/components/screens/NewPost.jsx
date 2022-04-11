@@ -10,6 +10,7 @@ import axios from "axios";
 import { convertFromRaw } from "draft-js";
 import Modal from "../widgets/Modal";
 import { IoCloseOutline } from "react-icons/io5";
+import Switch from "../widgets/Switch";
 
 const NewPost = () => {
     const { user, setLoaderHidden } = useContext(AppContext);
@@ -22,7 +23,8 @@ const NewPost = () => {
     const [saveStatus, setSaveStatus] = useState("");
     const [modalHidden, setModalHidden] = useState(true);
     const [publishStatus, setPublishStatus] = useState(null);
-    const [imgUrls, setImgUrls] = useState([]);
+    const [enabled, setEnabled] = useState(publishStatus);
+    const [selectedImgUrl, setSelectedImgUrl] = useState(null);
     const params = useParams();
 
     useEffect(() => {
@@ -49,6 +51,7 @@ const NewPost = () => {
                 setTitle(resp.data.title);
                 setAuthor(resp.data.author);
                 setPublishStatus(resp.data.status);
+                setSelectedImgUrl(resp.data.featured_img_url);
                 const body = JSON.parse(resp.data.body);
                 onEditorStateChange(
                     EditorState.createWithContent(convertFromRaw(body))
@@ -71,7 +74,10 @@ const NewPost = () => {
             "body",
             JSON.stringify(convertToRaw(editorState.getCurrentContent()))
         );
+        apiParams.append("status", enabled ? "published" : "draft");
+        apiParams.append("featured_img_url", selectedImgUrl);
 
+        console.log(convertToRaw(editorState.getCurrentContent()));
         axios
             .post(`/api/blogposts/${params.postId}`, apiParams, config)
             .then((resp) => {
@@ -98,9 +104,6 @@ const NewPost = () => {
             .then((resp) => {
                 console.log(resp.data);
                 setLoaderHidden(true);
-                setImgUrls((imgUrls) => {
-                    return [...imgUrls, resp.data.url];
-                });
                 return {
                     data: {
                         link: resp.data.url,
@@ -127,12 +130,21 @@ const NewPost = () => {
                             <IoCloseOutline size={20} />
                         </div>
                     </div>
-                    <div className="p-6 text-gray-700">
-                        <div className="flex flex-col">
+                    <div className="p-6 text-gray-700 flex-grow overflow-y-scroll flex flex-col">
+                        <div className="flex flex-col flex-grow">
                             <span className="font-heading font-medium mb-2">
                                 Status
                             </span>
-                            <div
+                            <div className="flex flex-row items-center gap-2">
+                                <Switch
+                                    enabled={enabled}
+                                    setEnabled={setEnabled}
+                                />
+                                <span className="text-xs font-medium">
+                                    {enabled ? "Published" : "Unpublished"}
+                                </span>
+                            </div>
+                            {/* <div
                                 className={`text-sm p-2 ${
                                     publishStatus === "draft"
                                         ? "bg-yellow-500"
@@ -147,17 +159,47 @@ const NewPost = () => {
                                 <div className="mt-4 flex justify-end">
                                     <Button label="Unpublish" />
                                 </div>
-                            )}
+                            )} */}
                             <span className="font-heading font-medium mb-2 mt-4">
                                 Featured Image
                             </span>
-                            <div>
-                                {imgUrls.map((imgUrl, index) => (
-                                    <div key={index} className="flex flex-row">
-                                        <img src={imgUrl} />
-                                    </div>
-                                ))}
+                            <span className="text-xs font-medium mb-2">
+                                Select to set as featured image
+                                {selectedImgUrl === "/images/bg.jpg" &&
+                                    " (current using default image)"}
+                            </span>
+                            <div className="flex flex-row gap-4 flex-wrap">
+                                {Object.entries(
+                                    convertToRaw(
+                                        editorState.getCurrentContent()
+                                    ).entityMap
+                                ).map(([key, value], index) => {
+                                    if (value.type === "IMAGE")
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={`flex justify-center items-center border-4 p-1 overflow-hidden object-cover w-36 cursor-pointer ${
+                                                    selectedImgUrl ===
+                                                        value.data.src &&
+                                                    "border-orange-500"
+                                                }`}
+                                                onClick={() =>
+                                                    setSelectedImgUrl(
+                                                        value.data.src
+                                                    )
+                                                }
+                                            >
+                                                <img
+                                                    src={value.data.src}
+                                                    className=""
+                                                />
+                                            </div>
+                                        );
+                                })}
                             </div>
+                        </div>
+                        <div className="flex flex-row justify-end mt-4 p-2 self-end">
+                            <Button label="Save" onClick={autosave} />
                         </div>
                     </div>
                 </div>

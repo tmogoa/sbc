@@ -62,7 +62,9 @@ class BlogController extends Controller
         $request->validate([
             'title' => 'required|string',
             'body' => 'required|string',
-            'author' => 'required|string'
+            'author' => 'required|string',
+            'status' => 'required|string',
+            'featured_img_url' => 'required|string'
         ]);
 
         $blog = Blog::find($id);
