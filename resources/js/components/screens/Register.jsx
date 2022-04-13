@@ -91,13 +91,11 @@ const Register = () => {
         axios
             .post("api/register", params)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
                 storeSession(resp.data);
                 navigate("/", { replace: true });
             })
             .catch((err) => {
-                console.log(err.response.data.errors);
                 const { errors } = err.response.data;
                 if (errors.email) setEmailError(errors.email);
                 if (errors.name) setNameError(errors.name);

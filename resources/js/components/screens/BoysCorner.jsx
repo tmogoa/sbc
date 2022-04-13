@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../util/AppContext";
 import Footer from "../widgets/Footer";
 import Navbar from "../widgets/Navbar";
@@ -8,10 +8,27 @@ import colors from "../../../assets/colors";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { convertToRaw, EditorState } from "draft-js";
+import PaginationLinks from "../widgets/PaginationLinks";
+import Post from "../widgets/Post";
 
 const BoysCorner = () => {
-    const { user, setLoaderHidden } = useContext(AppContext);
+    const { user, setLoaderHidden, setToastMsg, setToastHidden } =
+        useContext(AppContext);
+    const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
+    const [page, setPage] = useState(1);
+    const [paginationData, setPaginationData] = useState(null);
+
+    useEffect(() => {
+        if (page) {
+            if (user) {
+                getAllPosts();
+            } else {
+                getPublishedPosts();
+            }
+        }
+    }, [page]);
+
     return (
         <>
             {user && (
@@ -32,11 +49,97 @@ const BoysCorner = () => {
                         </div>
                     </div>
                 </div>
-
+                <div className="flex flex-col bg-gray-100 p-6">
+                    <div className="mt-4 mb-4 p-6 flex-grow grid grid-flow-row grid-cols-3 gap-y-16 gap-x-16">
+                        {posts.map((post, index) => (
+                            <Post
+                                key={index}
+                                data={post}
+                                deletePost={deletePost}
+                                editPost={editPost}
+                                viewPost={viewPost}
+                            />
+                        ))}
+                        {posts.length === 0 && (
+                            <span className="text-2xl font-heading text-gray-700">
+                                Nothing to show :(
+                            </span>
+                        )}
+                    </div>
+                    <div className="p-4 mt-6">
+                        {paginationData && (
+                            <PaginationLinks
+                                data={paginationData}
+                                setPage={setPage}
+                            />
+                        )}
+                    </div>
+                </div>
                 <Footer />
             </div>
         </>
     );
+
+    function getAllPosts() {
+        setLoaderHidden(false);
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` },
+        };
+        axios
+            .get(`/api/all/blogposts?page=${page}`, config)
+            .then((resp) => {
+                setPaginationData(resp.data);
+                setPosts(resp.data.data.slice());
+                setLoaderHidden(true);
+            })
+            .catch((err) => {
+                setLoaderHidden(true);
+            });
+    }
+
+    function getPublishedPosts() {
+        setLoaderHidden(false);
+        axios
+            .get(`/api/blogposts?page=${page}`)
+            .then((resp) => {
+                setPaginationData(resp.data);
+                setPosts(resp.data.data.slice());
+                setLoaderHidden(true);
+            })
+            .catch((err) => {
+                setLoaderHidden(true);
+            });
+    }
+
+    function deletePost(id) {
+        setLoaderHidden(false);
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` },
+        };
+        axios
+            .delete(`api/blogposts/${id}`, config)
+            .then((resp) => {
+                setLoaderHidden(true);
+                if (resp.status === 202) {
+                    setToastMsg("Post deleted successfully.");
+                    setToastHidden(false);
+                }
+                getAllPosts();
+            })
+            .catch((err) => {
+                setToastMsg("Error occured.");
+                setToastHidden(false);
+                setLoaderHidden(true);
+            });
+    }
+
+    function viewPost(id) {
+        navigate(`/boys-corner/post/${id}`);
+    }
+
+    function editPost(id) {
+        navigate(`/newpost/${id}`);
+    }
 
     function createNewPost() {
         setLoaderHidden(false);
@@ -57,12 +160,10 @@ const BoysCorner = () => {
         axios
             .post("api/blogposts", params, config)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
-                navigate(`/post/${resp.data.post.id}`);
+                navigate(`/newpost/${resp.data.post.id}`);
             })
             .catch((err) => {
-                console.log(err.response.data);
                 setLoaderHidden(true);
             });
     }

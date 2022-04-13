@@ -19,6 +19,11 @@ class BlogController extends Controller
         return Blog::paginate(6);
     }
 
+    public function showPublished()
+    {
+        return Blog::where('status', 'published')->paginate(6);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

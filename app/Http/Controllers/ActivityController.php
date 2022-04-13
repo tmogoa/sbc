@@ -103,7 +103,6 @@ class ActivityController extends Controller
 
         return response([
             'act' => $activity,
-            'name' => $nameoffile
         ], 201);
     }
 

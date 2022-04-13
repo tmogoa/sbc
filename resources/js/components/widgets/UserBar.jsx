@@ -61,14 +61,12 @@ const UserBar = () => {
         axios
             .post("api/logout", {}, config)
             .then((resp) => {
-                //console.log(resp.data);
                 deleteSession();
                 setLoaderHidden(true);
 
-                navigate("/adminlogin");
+                navigate("/");
             })
             .catch((err) => {
-                //console.log(err.response);
                 setLoaderHidden(true);
             });
     }

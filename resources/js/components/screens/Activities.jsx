@@ -13,8 +13,10 @@ import Button from "../widgets/Button";
 import axios from "axios";
 import { format, parse } from "date-fns";
 import PaginationLinks from "../widgets/PaginationLinks";
+import { useNavigate } from "react-router-dom";
 
 const Activities = () => {
+    const navigate = useNavigate();
     const [acts, setActs] = useState([]);
     const { setLoaderHidden, user, setToastHidden, setToastMsg } =
         useContext(AppContext);
@@ -43,7 +45,6 @@ const Activities = () => {
     useEffect(() => {
         if (page) {
             getActivities();
-            console.log(dateTime);
         }
     }, [page]);
 
@@ -75,7 +76,6 @@ const Activities = () => {
         axios
             .delete(`api/activities/${id}`, config)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
                 if (resp.status === 202) {
                     setToastMsg("Activity deleted successfully.");
@@ -84,7 +84,6 @@ const Activities = () => {
                 getActivities();
             })
             .catch((err) => {
-                console.log(err.response.data);
                 setToastMsg("Error occured.");
                 setToastHidden(false);
                 setLoaderHidden(true);
@@ -210,6 +209,7 @@ const Activities = () => {
                                 data={act}
                                 deleteActivity={deleteActivity}
                                 updateActivity={updateActivity}
+                                viewActivity={viewActivity}
                                 edit
                             />
                         ))}
@@ -233,6 +233,10 @@ const Activities = () => {
         </>
     );
 
+    function viewActivity(id) {
+        navigate(`/activities/${id}`);
+    }
+
     function saveUpdate() {
         clearErrors();
         setLoaderHidden(false);
@@ -254,7 +258,6 @@ const Activities = () => {
         axios
             .post(`api/update/activities/${actToUpdate.id}`, params, config)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
                 setToastMsg("Activity updated successfully.");
                 setToastHidden(false);
@@ -262,7 +265,6 @@ const Activities = () => {
                 getActivities();
             })
             .catch((err) => {
-                console.log(err.response.data);
                 if (err.response.status == 422) {
                     const { errors } = err.response.data;
                     if (errors.label) setLabelError(errors.label);
@@ -289,7 +291,6 @@ const Activities = () => {
         axios
             .post("api/activities", params, config)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
                 setToastMsg("Activity added successfully.");
                 setToastHidden(false);
@@ -297,7 +298,6 @@ const Activities = () => {
                 getActivities();
             })
             .catch((err) => {
-                console.log(err.response.data);
                 if (err.response.status == 422) {
                     const { errors } = err.response.data;
                     if (errors.label) setLabelError(errors.label);
@@ -321,13 +321,11 @@ const Activities = () => {
         axios
             .get(`api/activities?page=${page}`)
             .then((resp) => {
-                console.log(resp.data);
                 setPaginationData(resp.data);
                 setActs(resp.data.data.slice());
                 setLoaderHidden(true);
             })
             .catch((err) => {
-                console.log(err.response.data);
                 setLoaderHidden(true);
             });
     }

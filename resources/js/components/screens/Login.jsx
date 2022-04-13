@@ -77,13 +77,11 @@ const Login = () => {
         axios
             .post("api/login", params)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
                 storeSession(resp.data);
                 navigate("/", { replace: true });
             })
             .catch((err) => {
-                console.log(err.response);
                 setError(err.response.data.msg);
                 const { errors } = err.response.data;
                 if (errors) {

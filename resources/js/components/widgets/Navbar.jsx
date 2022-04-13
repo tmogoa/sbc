@@ -19,11 +19,11 @@ const Navbar = () => {
                         Activities
                     </div>
                 </Link>
-                <Link to="/register-boy">
+                <a href="https://forms.gle/gvqoWmMDxFQEQYf18" target="_blank">
                     <div className="px-4 rounded-3xl py-2 text-center hover:bg-orange-400 cursor-pointer">
                         Register
                     </div>
-                </Link>
+                </a>
                 <Link to="/boys-corner">
                     <div className="px-4 rounded-3xl py-2 text-center hover:bg-orange-400 cursor-pointer">
                         Boy's Corner

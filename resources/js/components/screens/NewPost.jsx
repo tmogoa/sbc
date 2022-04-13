@@ -23,7 +23,7 @@ const NewPost = () => {
     const [saveStatus, setSaveStatus] = useState("");
     const [modalHidden, setModalHidden] = useState(true);
     const [publishStatus, setPublishStatus] = useState(null);
-    const [enabled, setEnabled] = useState(publishStatus);
+    const [enabled, setEnabled] = useState(null);
     const [selectedImgUrl, setSelectedImgUrl] = useState(null);
     const params = useParams();
 
@@ -47,17 +47,17 @@ const NewPost = () => {
         axios
             .get(`/api/blogposts/${params.postId}`)
             .then((resp) => {
-                console.log(resp.data);
                 setTitle(resp.data.title);
                 setAuthor(resp.data.author);
                 setPublishStatus(resp.data.status);
+                setEnabled(resp.data.status === "published" ? true : false);
                 setSelectedImgUrl(resp.data.featured_img_url);
                 const body = JSON.parse(resp.data.body);
                 onEditorStateChange(
                     EditorState.createWithContent(convertFromRaw(body))
                 );
             })
-            .catch((err) => console.log(err.reponse.data));
+            .catch((err) => {});
     }
 
     function autosave() {
@@ -81,7 +81,6 @@ const NewPost = () => {
         axios
             .post(`/api/blogposts/${params.postId}`, apiParams, config)
             .then((resp) => {
-                console.log(resp.data);
                 setSaveStatus("");
             })
             .catch((err) => {
@@ -102,7 +101,6 @@ const NewPost = () => {
         return axios
             .post("/api/upload/blogposts", apiParams, config)
             .then((resp) => {
-                console.log(resp.data);
                 setLoaderHidden(true);
                 return {
                     data: {
@@ -144,22 +142,7 @@ const NewPost = () => {
                                     {enabled ? "Published" : "Unpublished"}
                                 </span>
                             </div>
-                            {/* <div
-                                className={`text-sm p-2 ${
-                                    publishStatus === "draft"
-                                        ? "bg-yellow-500"
-                                        : "bg-green-500"
-                                } text-white rounded font-medium`}
-                            >
-                                {publishStatus === "draft"
-                                    ? "Not Published"
-                                    : "Published"}
-                            </div>
-                            {publishStatus === "published" && (
-                                <div className="mt-4 flex justify-end">
-                                    <Button label="Unpublish" />
-                                </div>
-                            )} */}
+
                             <span className="font-heading font-medium mb-2 mt-4">
                                 Featured Image
                             </span>
@@ -198,7 +181,10 @@ const NewPost = () => {
                                 })}
                             </div>
                         </div>
-                        <div className="flex flex-row justify-end mt-4 p-2 self-end">
+                        <div className="flex flex-row justify-end mt-4 p-2 self-end items-center gap-2">
+                            <span className="font-medium text-sm border p-2">
+                                {saveStatus}
+                            </span>
                             <Button label="Save" onClick={autosave} />
                         </div>
                     </div>

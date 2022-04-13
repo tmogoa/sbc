@@ -52,12 +52,13 @@ const Footer = () => {
                         <Link to="/" className="hover:text-orange-400">
                             - Home
                         </Link>
-                        <Link
-                            to="/register-boy"
+                        <a
+                            href="https://forms.gle/gvqoWmMDxFQEQYf18"
+                            target="_blank"
                             className="hover:text-orange-400"
                         >
                             - Register
-                        </Link>
+                        </a>
                         <Link to="/about" className="hover:text-orange-400">
                             - About
                         </Link>

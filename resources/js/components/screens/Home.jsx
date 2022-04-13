@@ -38,12 +38,9 @@ const Home = () => {
                 )}`
             )
             .then((resp) => {
-                console.log(resp.data);
                 setActsFuture(resp.data.data.slice());
             })
-            .catch((err) => {
-                console.log(err.response.data);
-            });
+            .catch((err) => {});
     }
 
     function getActivitiesPast() {
@@ -55,12 +52,9 @@ const Home = () => {
                 )}`
             )
             .then((resp) => {
-                console.log(resp.data);
                 setActsPast(resp.data.data.slice());
             })
-            .catch((err) => {
-                console.log(err.response.data);
-            });
+            .catch((err) => {});
     }
 
     return (

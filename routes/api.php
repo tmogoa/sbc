@@ -24,7 +24,7 @@ Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::get('/threeactivitiesfuture/{date}', [ActivityController::class, 'firstThreeFuture']);
 Route::get('/threeactivitiespast/{date}', [ActivityController::class, 'firstThreePast']);
 
-Route::get('/blogposts',[BlogController::class, 'index']);
+Route::get('/blogposts',[BlogController::class, 'showPublished']);
 Route::get('/blogposts/{id}', [BlogController::class, 'show']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/update/activities/{id}', [ActivityController::class, 'update']);
     Route::delete('/activities/{id}', [ActivityController::class, 'destroy']);
 
+    Route::get('/all/blogposts',[BlogController::class, 'index']);
     Route::post('/blogposts', [BlogController::class, 'store']);
     Route::post('/blogposts/{id}', [BlogController::class, 'update']);
     Route::post('/upload/blogposts', [BlogController::class, 'upload']);

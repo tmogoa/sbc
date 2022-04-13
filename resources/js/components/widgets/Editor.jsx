@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { convertToRaw, EditorState } from "draft-js";
 import DOMPurify from "dompurify";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftToHtml from "draftjs-to-html";
 
 const TextEditor = ({ editorState, onEditorStateChange, uploadCallback }) => {
     return (
@@ -19,23 +17,9 @@ const TextEditor = ({ editorState, onEditorStateChange, uploadCallback }) => {
                         previewImage: true,
                     },
                 }}
-                // onContentStateChange={onContentStateChange}
                 editorState={editorState}
                 onEditorStateChange={onEditorStateChange}
             />
-            {/* <div>
-                {JSON.stringify(
-                    convertToRaw(editorState.getCurrentContent()),
-                    null,
-                    4
-                )}
-            </div> */}
-            {/* <div
-                className="prose lg:prose-xl"
-                dangerouslySetInnerHTML={createMarkup(
-                    draftToHtml(convertToRaw(editorState.getCurrentContent()))
-                )}
-            ></div> */}
         </div>
     );
 
