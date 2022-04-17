@@ -8,7 +8,11 @@ const Footer = () => {
             <div className="flex flex-col items-center lg:flex-row p-6 justify-around lg:items-start text-sm">
                 {/* Logo */}
                 <div className="p-6 flex justify-center items-center h-full">
-                    <img src={logo} className="w-36" />
+                    <img
+                        src={logo}
+                        className="w-36"
+                        alt="Sudek Boys Club logo"
+                    />
                 </div>
                 {/* Patners */}
                 <div className="flex flex-col items-center justify-start p-6">

@@ -15,7 +15,11 @@ const Navbar = () => {
             <div className="font-heading text-4xl md:text-5xl lg:text-5xl w-full lg:w-2/12 text-center flex flex-row justify-between items-center lg:justify-center">
                 <div className="px-2">
                     <Link to="/">
-                        <img src={logo} className="w-8 lg:w-10" />
+                        <img
+                            src={logo}
+                            className="w-8 lg:w-10"
+                            alt="Sudek Boys Club logo"
+                        />
                     </Link>
                 </div>
                 <div

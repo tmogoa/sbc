@@ -92,7 +92,11 @@ const Home = () => {
                         SBC
                     </div> */}
                     <div>
-                        <img src={logo} className="w-36" />
+                        <img
+                            src={logo}
+                            className="w-36"
+                            alt="Sudek Boys Club logo"
+                        />
                     </div>
                     <div className="lg:w-10/12 text-lg text-gray-700 p-2 lg:p-6 font-light font-heading text-justify">
                         Sudek Boys Club (SBC) is a Family Club run by a group of
@@ -267,6 +271,22 @@ const Home = () => {
                         </div>
                         <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
                             <span className="text-justify">
+                                "SBC has helped me meet new friends. It has
+                                encouraged me to socialize and connect with
+                                other boys of my age. It has various sports for
+                                us boys to play such as football and basketball.
+                                We also go hiking on nature trails such as Ngong
+                                Hills, Arboretum and Nairobi National Park. And
+                                these experiences have taught us how to be
+                                strong and be able to persevere and for this I
+                                love SBC very much."
+                            </span>
+                            <span className="p-2 text-sm font-sans font-medium italic text-gray-700">
+                                - Peter Jabali, SBC Member
+                            </span>
+                        </div>
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                            <span className="text-justify">
                                 "When the idea of SBC came, I didn’t think twice
                                 about having him enrolled. And this, as a
                                 family, has been the best decision for our son.
@@ -278,18 +298,6 @@ const Home = () => {
                             </span>
                             <span className="p-2 text-sm font-sans font-medium italic text-gray-700">
                                 - Kizito Osundwa, SBC Dad
-                            </span>
-                        </div>
-                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
-                            <span className="text-justify">
-                                "Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Similique, ipsum non! Dolorum
-                                consectetur sed eius quo enim? Magnam, cumque
-                                similique? Ipsa quam asperiores minima maiores
-                                rerum, debitis doloribus impedit distinctio."
-                            </span>
-                            <span className="p-2 text-sm font-sans font-medium italic text-gray-700">
-                                - Elly Okinyo
                             </span>
                         </div>
                     </div>
