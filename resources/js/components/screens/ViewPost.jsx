@@ -4,6 +4,7 @@ import draftToHtml from "draftjs-to-html";
 import DOMPurify from "dompurify";
 import Navbar from "../widgets/Navbar";
 import { format, parseISO } from "date-fns";
+import { Helmet } from "react-helmet";
 
 const ViewPost = () => {
     const [body, setBody] = useState(null);
@@ -28,11 +29,18 @@ const ViewPost = () => {
     }
     return (
         <div className="w-full flex flex-col">
-            <div className="bg-[url('../assets/img/3.jpg')] bg-cover">
+            <Helmet>
+                <title>{title}</title>
+                <meta
+                    name="description"
+                    content={`Sudek Boys CLub blogpost on ${title}`}
+                />
+            </Helmet>
+            <div className="bg-[url('../assets/img/1.webp')] bg-cover">
                 <Navbar />
             </div>
-            <div className="w-full flex flex-col items-center gap-1">
-                <div className="prose lg:prose-xl p-8 w-8/12 flex flex-col">
+            <div className="w-full flex flex-col items-start lg:items-center gap-1">
+                <div className="prose lg:prose-xl p-8 lg:w-8/12 flex flex-col">
                     <h1>{title}</h1>
                     <span className=" text-gray-700 font-medium">
                         By {author}
@@ -43,7 +51,7 @@ const ViewPost = () => {
                 </div>
                 {body && (
                     <div
-                        className="prose lg:prose-xl flex-grow px-8 pt-0 pb-8 w-8/12"
+                        className="prose lg:prose-xl flex-grow px-8 pt-0 pb-8 lg:w-8/12"
                         dangerouslySetInnerHTML={createMarkup(
                             draftToHtml(body)
                         )}

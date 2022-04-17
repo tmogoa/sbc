@@ -14,6 +14,7 @@ import axios from "axios";
 import { format, parse } from "date-fns";
 import PaginationLinks from "../widgets/PaginationLinks";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Activities = () => {
     const navigate = useNavigate();
@@ -69,31 +70,43 @@ const Activities = () => {
     };
 
     const deleteActivity = (id) => {
-        setLoaderHidden(false);
-        const config = {
-            headers: { Authorization: `Bearer ${user.token}` },
-        };
-        axios
-            .delete(`api/activities/${id}`, config)
-            .then((resp) => {
-                setLoaderHidden(true);
-                if (resp.status === 202) {
-                    setToastMsg("Activity deleted successfully.");
+        const canProceed = confirm(
+            "You are about to delete this item, proceed?"
+        );
+        if (canProceed) {
+            setLoaderHidden(false);
+            const config = {
+                headers: { Authorization: `Bearer ${user.token}` },
+            };
+            axios
+                .delete(`/api/activities/${id}`, config)
+                .then((resp) => {
+                    setLoaderHidden(true);
+                    if (resp.status === 202) {
+                        setToastMsg("Activity deleted successfully.");
+                        setToastHidden(false);
+                    }
+                    getActivities();
+                })
+                .catch((err) => {
+                    setToastMsg("Error occured.");
                     setToastHidden(false);
-                }
-                getActivities();
-            })
-            .catch((err) => {
-                setToastMsg("Error occured.");
-                setToastHidden(false);
-                setLoaderHidden(true);
-            });
+                    setLoaderHidden(true);
+                });
+        }
     };
 
     return (
         <>
+            <Helmet>
+                <title>Activities of Sudek Boys Club</title>
+                <meta
+                    name="description"
+                    content="Sudek Boys Club hold a number of activities for the boys, their fathers and thier mothers. For example, sports, movies, music, excursions, study, character talks and board games"
+                />
+            </Helmet>
             <Modal hidden={modalHidden}>
-                <div className="flex flex-col bg-white h-5/6 rounded-lg shadow-2xl w-6/12">
+                <div className="flex flex-col bg-white h-full lg:h-5/6 lg:rounded-lg lg:shadow-2xl w-full lg:w-6/12">
                     <div className="py-3 px-6 border-b text-sm font-medium text-gray-600 flex justify-between items-center">
                         <span>New Activity</span>
                         <div
@@ -103,7 +116,7 @@ const Activities = () => {
                             <IoCloseOutline size={20} />
                         </div>
                     </div>
-                    <div className="p-6 grid grid-cols-2 flex-grow overflow-y-scroll">
+                    <div className="p-6 grid grid-cols-1 lg:grid-cols-2 flex-grow overflow-y-scroll">
                         <div className="p-3">
                             <div className="mb-4">
                                 <TextInput
@@ -190,19 +203,19 @@ const Activities = () => {
                         }}
                     />
                 )}
-                <div className="flex flex-col h-[32rem] w-full bg-[url('../assets/img/3.jpg')] bg-cover">
+                <div className="flex flex-col h-64 lg:h-[32rem] w-full bg-[url('../assets/img/1.webp')] bg-cover">
                     <Navbar />
                     <div
                         className="flex-grow flex flex-row items-center p-10 gap-10 text-white bg-gray-800 bg-opacity-70 
 "
                     >
-                        <div className="font-heading text-7xl w-6/12">
+                        <div className="font-heading text-4xl lg:text-7xl lg:w-6/12">
                             Activities
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col bg-gray-100 p-6">
-                    <div className="mt-4 mb-4 p-6 flex-grow grid grid-flow-row grid-cols-3 gap-y-16 gap-x-16">
+                <div className="flex flex-col bg-gray-100 lg:p-6">
+                    <div className="lg:mt-4 lg:mb-4 p-4 flex-grow grid grid-flow-row grid-cols-1 lg:grid-cols-3 gap-y-1 lg:gap-y-16 lg:gap-x-16">
                         {acts.map((act, index) => (
                             <Activity
                                 key={index}
@@ -210,7 +223,6 @@ const Activities = () => {
                                 deleteActivity={deleteActivity}
                                 updateActivity={updateActivity}
                                 viewActivity={viewActivity}
-                                edit
                             />
                         ))}
                         {acts.length === 0 && (
@@ -256,7 +268,7 @@ const Activities = () => {
         }
 
         axios
-            .post(`api/update/activities/${actToUpdate.id}`, params, config)
+            .post(`/api/update/activities/${actToUpdate.id}`, params, config)
             .then((resp) => {
                 setLoaderHidden(true);
                 setToastMsg("Activity updated successfully.");
@@ -289,7 +301,7 @@ const Activities = () => {
         params.append("poster", image);
 
         axios
-            .post("api/activities", params, config)
+            .post("/api/activities", params, config)
             .then((resp) => {
                 setLoaderHidden(true);
                 setToastMsg("Activity added successfully.");
@@ -319,7 +331,7 @@ const Activities = () => {
     function getActivities() {
         setLoaderHidden(false);
         axios
-            .get(`api/activities?page=${page}`)
+            .get(`/api/activities?page=${page}`)
             .then((resp) => {
                 setPaginationData(resp.data);
                 setActs(resp.data.data.slice());

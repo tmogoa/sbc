@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import AboutItem from "../widgets/AboutItem";
 import Footer from "../widgets/Footer";
 import Navbar from "../widgets/Navbar";
+import { Helmet } from "react-helmet";
 
 const About = () => {
     const [abouts, setAbouts] = useState([
         {
             title: "Mission",
-            body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sint. Repudiandae unde, quam qui quasi voluptatibus ducimus eligendi, soluta ea quas corrupti, officiis tenetur culpa iusto ratione voluptatem doloribus itaque.",
+            body: "SBC aims to provide cultural, academic, and spiritual formation in collaboration with their parents, especially the fathers.",
         },
         {
             title: "Vision",
-            body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore, sint. Repudiandae unde, quam qui quasi voluptatibus ducimus eligendi, soluta ea quas corrupti, officiis tenetur culpa iusto ratione voluptatem doloribus itaque.",
+            body: "To help the parents form their boys into young men of character.",
         },
         {
             title: "About Us",
@@ -46,16 +47,25 @@ const About = () => {
     ]);
     return (
         <div className="w-full flex flex-col">
-            <div className="flex flex-col h-[32rem] w-full bg-[url('../assets/img/1.jpg')] bg-cover">
+            <Helmet>
+                <title>About Sudek Boys Club</title>
+                <meta
+                    name="description"
+                    content="SBC aims to provide cultural, academic, and spiritual formation in collaboration with their parents, especially the fathers."
+                />
+            </Helmet>
+            <div className="flex lg:h-[32rem] flex-col w-full bg-[url('../assets/img/1.webp')] bg-cover">
                 <Navbar />
                 <div
-                    className="flex-grow flex flex-row justify-around items-center p-10 gap-10 text-white bg-gray-800 bg-opacity-70 
+                    className="flex-grow flex flex-col lg:flex-row gap-4 lg:justify-around items-center p-10 lg:gap-10 text-white bg-gray-800 bg-opacity-70 
                 "
                 >
-                    <div className="font-heading text-7xl w-6/12">About Us</div>
-                    <div className="w-6/12 p-6 flex justify-end flex-col h-full">
+                    <div className="font-heading text-4xl lg:text-7xl lg:w-6/12 mb-4 lg:mb-0">
+                        About Us
+                    </div>
+                    <div className="lg:w-6/12 p-2 lg:p-6 flex justify-end flex-col h-full">
                         <div className="w-10 h-1 bg-orange-400 mb-4"></div>
-                        <div className="text-lg text-gray-200">
+                        <div className="text-gray-200 font-heading font-normal">
                             Sudek Boys Club (SBC) is a Family Club run by a
                             group of Nairobi parents whose aim is to help their
                             sons grow into young men of character through
@@ -66,7 +76,7 @@ const About = () => {
                 </div>
             </div>
             {/* More */}
-            <div className="flex flex-col p-12 gap-20  bg-gray-100">
+            <div className="flex flex-col p-2 lg:p-12 lg:gap-20  bg-gray-100">
                 {abouts.map((about, index) => (
                     <AboutItem key={index} about={about} />
                 ))}

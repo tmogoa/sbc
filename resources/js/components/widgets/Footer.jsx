@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../../assets/img/logo.webp";
 
 const Footer = () => {
     return (
         <div className="flex flex-col w-full">
-            <div className="flex flex-row p-6 justify-around items-start text-sm">
+            <div className="flex flex-col items-center lg:flex-row p-6 justify-around lg:items-start text-sm">
                 {/* Logo */}
                 <div className="p-6 flex justify-center items-center h-full">
-                    <div className="font-heading text-8xl  text-center text-orange-400">
-                        SBC
-                    </div>
+                    <img src={logo} className="w-36" />
                 </div>
                 {/* Patners */}
                 <div className="flex flex-col items-center justify-start p-6">

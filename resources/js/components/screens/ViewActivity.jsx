@@ -6,6 +6,7 @@ import Navbar from "../widgets/Navbar";
 import { format, parse, isFuture } from "date-fns";
 import { BsCheck2All, BsClock } from "react-icons/bs";
 import colors from "../../../assets/colors";
+import { Helmet } from "react-helmet";
 const ViewActivity = () => {
     const params = useParams();
     const [data, setData] = useState(null);
@@ -32,15 +33,19 @@ const ViewActivity = () => {
     }
     return (
         <div className="w-full flex flex-col">
-            <div className="bg-[url('../assets/img/3.jpg')] bg-cover">
+            <Helmet>
+                <title>{data?.label}</title>
+                <meta name="description" content={data?.description} />
+            </Helmet>
+            <div className="bg-[url('../assets/img/1.webp')] bg-cover">
                 <Navbar />
             </div>
             <div className="flex flex-col items-center p-8">
-                <div className="flex flex-row border shadow w-8/12 rounded">
-                    <div className="w-5/12 border-r rounded-l flex justify-center items-center">
+                <div className="flex flex-col lg:flex-row border shadow lg:w-8/12 rounded">
+                    <div className="lg:w-5/12 border-r rounded-l flex justify-center items-center">
                         <img src={data?.featured_img} />
                     </div>
-                    <div className="w-7/12 px-8 pt-4  pb-8 flex flex-col text-gray-700 gap-4 rounded-r">
+                    <div className="lg:w-7/12 px-8 pt-4  pb-8 flex flex-col text-gray-700 gap-4 rounded-r">
                         <span className="w-full flex flex-row justify-end">
                             <div
                                 className={`text-white text-sm font-medium z-30 rounded-3xl shadow ${

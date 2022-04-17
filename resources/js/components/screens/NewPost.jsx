@@ -118,7 +118,7 @@ const NewPost = () => {
     return (
         <>
             <Modal hidden={modalHidden}>
-                <div className="flex flex-col bg-white h-5/6 rounded-lg shadow-2xl w-6/12">
+                <div className="flex flex-col bg-white h-full lg:h-5/6 lg:rounded-lg shadow-2xl w-full lg:w-6/12">
                     <div className="py-3 px-6 border-b text-sm font-medium text-gray-600 flex justify-between items-center">
                         <span>Publish Post</span>
                         <div
@@ -148,7 +148,7 @@ const NewPost = () => {
                             </span>
                             <span className="text-xs font-medium mb-2">
                                 Select to set as featured image
-                                {selectedImgUrl === "/images/bg.jpg" &&
+                                {selectedImgUrl === "/images/bg.webp" &&
                                     " (current using default image)"}
                             </span>
                             <div className="flex flex-row gap-4 flex-wrap">
@@ -191,10 +191,10 @@ const NewPost = () => {
                 </div>
             </Modal>
             <div className="w-full flex flex-col">
-                <div className="bg-[url('../assets/img/3.jpg')] bg-cover">
+                <div className="bg-[url('../assets/img/4.webp')] bg-cover">
                     <Navbar />
                 </div>
-                <div className="flex flex-row-reverse justify-between items-center p-6">
+                <div className="flex flex-col-reverse lg:flex-row-reverse justify-between sticky top-0 z-20 bg-gray-100 lg:items-center p-6">
                     <div>
                         <Button
                             label="Publish"
@@ -206,7 +206,7 @@ const NewPost = () => {
                     </div>
                 </div>
                 <div className="flex flex-col p-6">
-                    <div className="px-6 mb-5 flex flex-row gap-4">
+                    <div className="px-6 mb-5 flex flex-col lg:flex-row gap-4">
                         <div className="flex-grow">
                             <TextInput
                                 label="Title"

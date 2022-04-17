@@ -34,11 +34,16 @@ const Post = ({ deletePost, editPost, data, viewPost }) => {
                     </div>
                 </div>
             )}
-            <div className="p-4 relative flex flex-col gap-1 border rounded-b border-gray-300">
+            <div
+                className={`p-4 relative flex flex-col gap-1 border ${
+                    user ? "rounded-b" : "rounded"
+                } border-gray-300`}
+            >
                 <img
                     src={data.featured_img_url}
-                    alt=""
+                    alt={`Image for ${data.title}`}
                     className="object-cover w-full h-56"
+                    loading="lazy"
                 />
                 <span className="text-gray-500 p-1 font-medium text-sm">
                     {format(date, "MMM do, yyyy")}

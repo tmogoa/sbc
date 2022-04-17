@@ -3,8 +3,8 @@ import React from "react";
 const Modal = ({ children, hidden }) => {
     return (
         <div
-            className={`fixed flex justify-center items-center z-40 bg-black bg-opacity-60 w-screen h-screen top-0 left-0 ${
-                hidden && "hidden"
+            className={`fixed flex justify-center items-center z-50 bg-black bg-opacity-60 w-screen h-screen top-0 left-0 transform transition duration-500 ease-in-out ${
+                hidden ? "scale-0" : "scale-100"
             }`}
         >
             {children}

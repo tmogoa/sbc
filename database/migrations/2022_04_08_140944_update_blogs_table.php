@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('blogs', function (Blueprint $table) {
             $table->enum('status', ['draft', 'published']);
-            $table->string("featured_img_url")->default("/images/bg.jpg");
+            $table->string("featured_img_url")->default("/images/bg.webp");
         });
     }
 

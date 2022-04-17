@@ -89,7 +89,7 @@ const Register = () => {
         params.append("password", password);
         params.append("password_confirmation", confirm);
         axios
-            .post("api/register", params)
+            .post("/api/register", params)
             .then((resp) => {
                 setLoaderHidden(true);
                 storeSession(resp.data);

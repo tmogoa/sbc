@@ -7,7 +7,11 @@ module.exports = {
         "./resources/**/*.jsx",
     ],
     theme: {
-        extend: {},
+        extend: {
+            transitionProperty: {
+                height: "height",
+            },
+        },
         fontFamily: {
             sans: ["Inter", ...defaultTheme.fontFamily.sans],
             serif: [...defaultTheme.fontFamily.serif],

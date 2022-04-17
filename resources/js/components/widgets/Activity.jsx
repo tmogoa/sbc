@@ -22,7 +22,7 @@ const Activity = ({
             } cursor-pointer`}
             onClick={() => viewActivity(data.id)}
         >
-            {user && edit && (
+            {user && (
                 <div className="px-4 py-2 flex flex-row-reverse gap-2 border-b border-gray-300">
                     <div
                         className="p-2 rounded-full hover:bg-red-200 active:bg-red-300"
@@ -44,11 +44,12 @@ const Activity = ({
                     </div>
                 </div>
             )}
-            <div className={`p-4 relative flex flex-col`}>
+            <div className={`p-2 lg:p-4 relative flex flex-col`}>
                 <img
                     src={data.featured_img}
-                    alt=""
+                    alt={`Poster image for ${data.label}`}
                     className="object-cover w-full h-56"
+                    loading="lazy"
                 />
                 <div
                     className={`absolute top-8 right-8 text-white text-sm font-medium z-30 rounded-3xl shadow ${
@@ -72,7 +73,7 @@ const Activity = ({
                     )}
                 </div>
             </div>
-            <div className="flex flex-col p-4">
+            <div className="flex flex-col p-2 lg:p-4">
                 <span className="text-gray-500 p-1 font-medium text-sm">
                     {format(when, "MMM do, yyyy h:mm bbb")}
                 </span>

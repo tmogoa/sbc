@@ -10,18 +10,18 @@ import { useNavigate } from "react-router-dom";
 const UserBar = () => {
     const navigate = useNavigate();
     const { user, deleteSession, setLoaderHidden } = useContext(AppContext);
-    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [dropdownHidden, setDropdownHidden] = useState(true);
 
     document.addEventListener("click", () => {
-        if (dropdownVisible) {
-            setDropdownVisible(false);
+        if (!dropdownHidden) {
+            setDropdownHidden(true);
         }
     });
 
     if (user) {
         return (
             <div
-                className="flex flex-row items-center text-gray-700 py-3 px-4 gap-3 border z-40 shadow rounded bg-white hover:bg-gray-100 cursor-pointer"
+                className="flex flex-row items-center text-gray-700 py-3 px-4 gap-3 border z-40 shadow rounded bg-white hover:bg-gray-100 cursor-pointer relative"
                 onClick={toggleShow}
             >
                 <BsPerson size={22} color={colors.black} />
@@ -35,8 +35,8 @@ const UserBar = () => {
                     <HiOutlineChevronDown size={14} color={colors.black} />
                 </div>
                 <div
-                    className={`absolute w-44 h-20 bg-white rounded shadow top-20 p-4 right-5 z-30 ${
-                        !dropdownVisible && "hidden"
+                    className={`absolute bg-white rounded shadow top-14 p-4 right-0 z-50 ${
+                        dropdownHidden && "hidden"
                     }`}
                 >
                     <Button label="Logout" onClick={logout} />
@@ -50,7 +50,7 @@ const UserBar = () => {
     function toggleShow(e) {
         e.preventDefault();
         e.stopPropagation();
-        setDropdownVisible(!dropdownVisible);
+        setDropdownHidden((dropdownHidden) => !dropdownHidden);
     }
 
     function logout() {
@@ -59,7 +59,7 @@ const UserBar = () => {
             headers: { Authorization: `Bearer ${user.token}` },
         };
         axios
-            .post("api/logout", {}, config)
+            .post("/api/logout", {}, config)
             .then((resp) => {
                 deleteSession();
                 setLoaderHidden(true);
@@ -67,6 +67,7 @@ const UserBar = () => {
                 navigate("/");
             })
             .catch((err) => {
+                console.log(err.response.data);
                 setLoaderHidden(true);
             });
     }

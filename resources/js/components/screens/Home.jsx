@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AppContext } from "../util/AppContext";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "../widgets/Button";
 import Navbar from "../widgets/Navbar";
@@ -18,9 +17,10 @@ import { GiDramaMasks } from "react-icons/gi";
 import { BiMoviePlay } from "react-icons/bi";
 import { RiParentFill } from "react-icons/ri";
 import { format } from "date-fns";
+import logo from "../../../assets/img/logo.webp";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
-    const { setLoaderHidden } = useContext(AppContext);
     const [actsFuture, setActsFuture] = useState([]);
     const [actsPast, setActsPast] = useState([]);
 
@@ -32,7 +32,7 @@ const Home = () => {
     function getActivitiesFuture() {
         axios
             .get(
-                `api/threeactivitiesfuture/${format(
+                `/api/threeactivitiesfuture/${format(
                     new Date(),
                     "yyyy-MM-dd HH:mm:ss"
                 )}`
@@ -46,7 +46,7 @@ const Home = () => {
     function getActivitiesPast() {
         axios
             .get(
-                `api/threeactivitiespast/${format(
+                `/api/threeactivitiespast/${format(
                     new Date(),
                     "yyyy-MM-dd HH:mm:ss"
                 )}`
@@ -59,13 +59,22 @@ const Home = () => {
 
     return (
         <div className="w-full flex flex-col">
-            <div className="h-screen w-full bg-[url('../assets/img/bg.jpg')] bg-cover">
+            <Helmet>
+                <title>SBC | Home</title>
+                <meta
+                    name="description"
+                    content="Official home page of Sudek Boys Club (SBC)"
+                />
+            </Helmet>
+            <div className="h-screen w-full bg-[url('../assets/img/bg.webp')] bg-cover bg-center">
                 <Navbar />
-                <div className="h-full flex flex-col justify-center p-10 gap-10 text-white bg-opacity-50 bg-gray-800 pb-48">
+                <div className="h-full flex gap-4 flex-col justify-center lg:justify-center p-4 lg:p-10 lg:gap-10 text-white bg-opacity-50 bg-gray-800">
                     <div className="uppercase font-heading underline underline-offset-8">
                         Be firm, be verile, be a man!
                     </div>
-                    <div className="font-heading text-7xl">SUDEK BOYS CLUB</div>
+                    <div className="font-heading text-5xl lg:text-7xl">
+                        SUDEK BOYS CLUB
+                    </div>
                     <div className="w-52">
                         <Button
                             label="Learn More"
@@ -78,11 +87,14 @@ const Home = () => {
                 </div>
             </div>
             <div className="bg-gray-100" id="more">
-                <div className="flex flex-row items-center p-20">
-                    <div className="font-heading text-7xl w-2/12 text-center text-orange-400">
+                <div className="flex flex-col lg:flex-row items-center p-4 lg:p-20 lg:gap-0 gap-2">
+                    {/* <div className="font-heading text-7xl lg:w-2/12 text-center text-orange-400">
                         SBC
+                    </div> */}
+                    <div>
+                        <img src={logo} className="w-36" />
                     </div>
-                    <div className="w-10/12 text-2xl text-gray-700 p-6 font-light font-heading">
+                    <div className="lg:w-10/12 text-lg text-gray-700 p-2 lg:p-6 font-light font-heading text-justify">
                         Sudek Boys Club (SBC) is a Family Club run by a group of
                         Nairobi parents whose aim is to help their sons grow
                         into young men of character through constructive use of
@@ -93,7 +105,7 @@ const Home = () => {
                 <div className="bg-white">
                     <Banner label="Activities," />
 
-                    <div className="grid grid-flow-row grid-cols-3 p-6 gap-3">
+                    <div className="grid lg:grid-flow-row grid-cols-1 lg:grid-cols-3 p-6 gap-3">
                         <div className="flex flex-col p-4 border rounded-sm">
                             <div className="p-2 mb-2">
                                 <FcLandscape size={40} color={colors.orange} />
@@ -217,7 +229,7 @@ const Home = () => {
 
                 <div className="bg-gray-100 flex flex-col">
                     <Banner label="Upcoming," />
-                    <div className="mt-4 p-6 grid grid-flow-row grid-cols-3 gap-y-16 gap-x-16">
+                    <div className="mt-4 p-6 grid grid-flow-row grid-cols-1 lg:grid-cols-3 lg:gap-y-16 lg:gap-x-16">
                         {actsFuture.map((act, index) => (
                             <Activity key={index} data={act} />
                         ))}
@@ -238,29 +250,56 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="h-screen bg-[url('../assets/img/2.jpg')] bg-cover">
-                <div className="flex flex-row-reverse h-full items-center flex-grow">
-                    <span className="text-xl bg-white text-gray-600  font-light font-heading w-1/2 flex flex-row rounded-l shadow">
-                        <div className="p-6 flex flex-col">
-                            <span className="">
-                                Lorem ipsum dolor sit amet, consectetur
+            <div className="lg:h-screen lg:bg-[url('../assets/img/4.webp')] bg-cover">
+                <div className="flex flex-col lg:flex-row-reverse h-full items-center flex-grow">
+                    <div className="text-xl  text-gray-600  font-light font-heading grid grid-flow-row grid-cols-1 p-2 lg:p-6 lg:grid-cols-3 gap-4">
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                            <span className="text-justify">
+                                "The club activities have been very engaging
+                                every Saturday and during school holidays too
+                                there are activities he has participated in. He
+                                is usually looking forward to the weekend very
+                                keen to know about the SBC activity."
+                            </span>
+                            <span className="p-2 text-sm font-sans font-medium italic text-gray-700">
+                                - Liz Ngomi, SBC Mum
+                            </span>
+                        </div>
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                            <span className="text-justify">
+                                "When the idea of SBC came, I didn’t think twice
+                                about having him enrolled. And this, as a
+                                family, has been the best decision for our son.
+                                Through the club, it has enabled me as a parent
+                                get to meet more like-minded parents, bond with
+                                them and the boys, and get to learn on a more
+                                personal and closer level the characters of many
+                                other boys who are my son’s age."
+                            </span>
+                            <span className="p-2 text-sm font-sans font-medium italic text-gray-700">
+                                - Kizito Osundwa, SBC Dad
+                            </span>
+                        </div>
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                            <span className="text-justify">
+                                "Lorem ipsum dolor sit amet, consectetur
                                 adipisicing elit. Similique, ipsum non! Dolorum
                                 consectetur sed eius quo enim? Magnam, cumque
                                 similique? Ipsa quam asperiores minima maiores
-                                rerum, debitis doloribus impedit distinctio.
+                                rerum, debitis doloribus impedit distinctio."
                             </span>
                             <span className="p-2 text-sm font-sans font-medium italic text-gray-700">
                                 - Elly Okinyo
                             </span>
                         </div>
-                    </span>
+                    </div>
                 </div>
             </div>
 
             <div className="bg-gray-100">
                 <div className="flex flex-col">
                     <Banner label="Recently," />
-                    <div className="mt-4 p-6 flex-grow grid grid-flow-row grid-cols-3 gap-y-16 gap-x-16">
+                    <div className="mt-4 p-4 lg:p-6 flex-grow grid grid-flow-row grid-cols-1 gap-y-1 lg:grid-cols-3 lg:gap-x-16">
                         {actsPast.map((act, index) => (
                             <Activity key={index} data={act} />
                         ))}
