@@ -20,7 +20,7 @@ const About = () => {
         },
         {
             title: "Club Membership",
-            body: "The Club is open to boys 7-13 years old (the boy should be turning at least 7 years old in the year he joins the club). Its Saturday activities run from 8.45 am to 2.30 pm. Holiday activities will be indicated in the respective holiday planner will be sent out to members and their parents.",
+            body: "The Club is open to boys 7-13 years old (the boy should be turning at least 7 years old in the year he joins the club). Its Saturday activities run from 8.45 am to 2.30 pm. Holiday activities will be indicated in the respective holiday planner and will be sent out to members and their parents.",
         },
         {
             title: "To become a member",

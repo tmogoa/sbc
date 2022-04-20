@@ -5,6 +5,7 @@ import colors from "../../../assets/colors";
 import { format, parse, isFuture } from "date-fns";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import { BiEditAlt } from "react-icons/bi";
+import TextTruncate from "react-text-truncate";
 
 const Activity = ({
     data,
@@ -52,7 +53,7 @@ const Activity = ({
                     loading="lazy"
                 />
                 <div
-                    className={`absolute top-8 right-8 text-white text-sm font-medium z-30 rounded-3xl shadow ${
+                    className={`absolute top-8 right-8 text-white text-sm font-medium z-20 rounded-3xl shadow ${
                         !isFuture(when) ? "bg-red-500" : "bg-green-500"
                     } px-4 py-2 flex flex-row items-center gap-2`}
                 >
@@ -81,8 +82,16 @@ const Activity = ({
                     {data.label}
                 </span>
 
-                <span className="text-gray-600 h-36 text-sm overflow-hidden p-2">
-                    {data.description}
+                <span className="text-gray-600 text-base overflow-hidden p-2">
+                    <TextTruncate
+                        line={7}
+                        element="span"
+                        truncateText="…"
+                        text={data.description}
+                        textTruncateChild={
+                            <span className="text-blue-500">Read more</span>
+                        }
+                    />
                 </span>
             </div>
         </div>

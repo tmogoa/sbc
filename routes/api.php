@@ -17,7 +17,6 @@ use App\Http\Controllers\BlogController;
 */
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::get('/activities/{id}', [ActivityController::class, 'show']);
@@ -29,6 +28,7 @@ Route::get('/blogposts/{id}', [BlogController::class, 'show']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/register', [AuthController::class, 'register']);
 
     Route::post('/activities', [ActivityController::class, 'store']);
     Route::post('/update/activities/{id}', [ActivityController::class, 'update']);

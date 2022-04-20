@@ -7,6 +7,8 @@ import { format, parse, isFuture } from "date-fns";
 import { BsCheck2All, BsClock } from "react-icons/bs";
 import colors from "../../../assets/colors";
 import { Helmet } from "react-helmet";
+import Footer from "../widgets/Footer";
+import Linkify from "react-linkify/dist/components/Linkify";
 const ViewActivity = () => {
     const params = useParams();
     const [data, setData] = useState(null);
@@ -40,12 +42,12 @@ const ViewActivity = () => {
             <div className="bg-[url('../assets/img/1.webp')] bg-cover">
                 <Navbar />
             </div>
-            <div className="flex flex-col items-center p-8">
+            <div className="flex flex-col items-center p-2 lg:p-8">
                 <div className="flex flex-col lg:flex-row border shadow lg:w-8/12 rounded">
                     <div className="lg:w-5/12 border-r rounded-l flex justify-center items-center">
                         <img src={data?.featured_img} />
                     </div>
-                    <div className="lg:w-7/12 px-8 pt-4  pb-8 flex flex-col text-gray-700 gap-4 rounded-r">
+                    <div className="lg:w-7/12 p-4 lg:px-8 lg:pt-4 lg:pb-8 flex flex-col text-gray-700 gap-4 rounded-r">
                         <span className="w-full flex flex-row justify-end">
                             <div
                                 className={`text-white text-sm font-medium z-30 rounded-3xl shadow ${
@@ -83,10 +85,13 @@ const ViewActivity = () => {
                         <span className="text-sm font-medium">
                             {when && format(when, "MMM do, yyyy h:mm bbb")}
                         </span>
-                        <div>{data?.description}</div>
+                        <div className="whitespace-pre-wrap text-base links">
+                            <Linkify>{data?.description}</Linkify>
+                        </div>
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

@@ -7,6 +7,7 @@
 
         <title>Sudek Boys Club</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="shortcut icon" type="image/webp" href="{{ asset('images/logo.webp') }}"/>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

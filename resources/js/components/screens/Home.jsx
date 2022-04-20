@@ -19,8 +19,10 @@ import { RiParentFill } from "react-icons/ri";
 import { format } from "date-fns";
 import logo from "../../../assets/img/logo.webp";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
     const [actsFuture, setActsFuture] = useState([]);
     const [actsPast, setActsPast] = useState([]);
 
@@ -28,6 +30,10 @@ const Home = () => {
         getActivitiesFuture();
         getActivitiesPast();
     }, []);
+
+    function viewActivity(id) {
+        navigate(`/activities/${id}`);
+    }
 
     function getActivitiesFuture() {
         axios
@@ -87,18 +93,16 @@ const Home = () => {
                 </div>
             </div>
             <div className="bg-gray-100" id="more">
-                <div className="flex flex-col lg:flex-row items-center p-4 lg:p-20 lg:gap-0 gap-2">
-                    {/* <div className="font-heading text-7xl lg:w-2/12 text-center text-orange-400">
-                        SBC
-                    </div> */}
+                <div className="flex justify-center items-center p-4 lg:p-20 lg:gap-0 gap-2">
+                    {/*                     
                     <div>
                         <img
                             src={logo}
                             className="w-36"
                             alt="Sudek Boys Club logo"
                         />
-                    </div>
-                    <div className="lg:w-10/12 text-lg text-gray-700 p-2 lg:p-6 font-light font-heading text-justify">
+                    </div> */}
+                    <div className="lg:w-10/12 text-lg lg:text-xl text-gray-700 p-2 lg:p-6 font-light font-heading text-justify">
                         Sudek Boys Club (SBC) is a Family Club run by a group of
                         Nairobi parents whose aim is to help their sons grow
                         into young men of character through constructive use of
@@ -109,7 +113,7 @@ const Home = () => {
                 <div className="bg-white">
                     <Banner label="Activities," />
 
-                    <div className="grid lg:grid-flow-row grid-cols-1 lg:grid-cols-3 p-6 gap-3">
+                    <div className="grid lg:grid-flow-row grid-cols-1 lg:grid-cols-3 p-2 lg:p-6 gap-3">
                         <div className="flex flex-col p-4 border rounded-sm">
                             <div className="p-2 mb-2">
                                 <FcLandscape size={40} color={colors.orange} />
@@ -235,7 +239,11 @@ const Home = () => {
                     <Banner label="Upcoming," />
                     <div className="mt-4 p-6 grid grid-flow-row grid-cols-1 lg:grid-cols-3 lg:gap-y-16 lg:gap-x-16">
                         {actsFuture.map((act, index) => (
-                            <Activity key={index} data={act} />
+                            <Activity
+                                key={index}
+                                data={act}
+                                viewActivity={viewActivity}
+                            />
                         ))}
                         {actsFuture.length === 0 && (
                             <span className="p-6 text-gray-700">
@@ -309,7 +317,11 @@ const Home = () => {
                     <Banner label="Recently," />
                     <div className="mt-4 p-4 lg:p-6 flex-grow grid grid-flow-row grid-cols-1 gap-y-1 lg:grid-cols-3 lg:gap-x-16">
                         {actsPast.map((act, index) => (
-                            <Activity key={index} data={act} />
+                            <Activity
+                                key={index}
+                                data={act}
+                                viewActivity={viewActivity}
+                            />
                         ))}
                         {actsPast.length === 0 && (
                             <span className="p-6 text-gray-700">

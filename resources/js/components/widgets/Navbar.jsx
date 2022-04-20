@@ -11,7 +11,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { user } = useContext(AppContext);
     return (
-        <div className="flex flex-col lg:flex-row p-2 lg:p-5 z-40 shadow text-white bg-opacity-80 bg-gray-600 items-center lg:gap-4">
+        <div className="flex flex-col lg:flex-row p-2 lg:p-5 z-30 shadow text-white bg-opacity-80 bg-gray-600 items-center lg:gap-4">
             <div className="font-heading text-4xl md:text-5xl lg:text-5xl w-full lg:w-2/12 text-center flex flex-row justify-between items-center lg:justify-center">
                 <div className="px-2">
                     <Link to="/">
@@ -37,7 +37,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div
-                className={`flex-grow flex flex-col lg:flex-row gap-2 lg:gap-6 text-base transition-height duration-500 ease-in-out ${
+                className={`flex-grow flex flex-col lg:flex-row gap-2 lg:gap-6 text-base transition-height duration-500 items-center ease-in-out ${
                     !isOpen
                         ? "h-0 lg:h-auto overflow-hidden lg:overflow-visible"
                         : `${user ? "h-[21rem]" : "h-[17rem]"} lg:h-auto`

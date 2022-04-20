@@ -10,7 +10,7 @@ import axios from "axios";
 
 const Register = () => {
     const navigate = useNavigate();
-    const { setLoaderHidden, storeSession } = useContext(AppContext);
+    const { setLoaderHidden, storeSession, user } = useContext(AppContext);
     const [name, setName] = useState("Tony Mogoa");
     const [email, setEmail] = useState("tony.mogoa@strathmore.edu");
     const [password, setPassword] = useState("12345678");
@@ -83,13 +83,16 @@ const Register = () => {
 
     function register() {
         setLoaderHidden(false);
+        const config = {
+            headers: { Authorization: `Bearer ${user?.token}` },
+        };
         const params = new FormData();
         params.append("name", name);
         params.append("email", email);
         params.append("password", password);
         params.append("password_confirmation", confirm);
         axios
-            .post("/api/register", params)
+            .post("/api/register", params, config)
             .then((resp) => {
                 setLoaderHidden(true);
                 storeSession(resp.data);

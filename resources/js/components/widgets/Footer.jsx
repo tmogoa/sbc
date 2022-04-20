@@ -4,8 +4,8 @@ import logo from "../../../assets/img/logo.webp";
 
 const Footer = () => {
     return (
-        <div className="flex flex-col w-full">
-            <div className="flex flex-col items-center lg:flex-row p-6 justify-around lg:items-start text-sm">
+        <div className="flex flex-col w-full links">
+            <div className="flex flex-col items-center lg:flex-row p-6 justify-around lg:items-start">
                 {/* Logo */}
                 <div className="p-6 flex justify-center items-center h-full">
                     <img
@@ -17,9 +17,9 @@ const Footer = () => {
                 {/* Patners */}
                 <div className="flex flex-col items-center justify-start p-6">
                     <div className="font-heading text-orange-400 text-2xl w-full">
-                        OUR PATNERS
+                        OUR PARTNERS
                     </div>
-                    <div className="text-gray-700 font-medium flex flex-col gap-1 p-2 w-full">
+                    <div className="text-gray-700 flex flex-col gap-1 p-2 w-full">
                         <a
                             href="https://www.sudek.org/"
                             className="hover:text-orange-400"
@@ -51,7 +51,7 @@ const Footer = () => {
                     <div className="font-heading text-orange-400 text-2xl w-full">
                         USEFUL LINKS
                     </div>
-                    <div className="text-gray-700 font-medium flex flex-col gap-1 p-2 w-full">
+                    <div className="text-gray-700 flex flex-col gap-1 p-2 w-full">
                         <Link to="/" className="hover:text-orange-400">
                             - Home
                         </Link>

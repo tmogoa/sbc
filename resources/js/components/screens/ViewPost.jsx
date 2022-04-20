@@ -51,7 +51,7 @@ const ViewPost = () => {
                 </div>
                 {body && (
                     <div
-                        className="prose lg:prose-xl flex-grow px-8 pt-0 pb-8 lg:w-8/12"
+                        className="prose lg:prose-xl flex-grow px-8 pt-0 pb-8 lg:w-8/12 links"
                         dangerouslySetInnerHTML={createMarkup(
                             draftToHtml(body)
                         )}
