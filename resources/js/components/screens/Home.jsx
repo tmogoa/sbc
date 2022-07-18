@@ -94,14 +94,6 @@ const Home = () => {
             </div>
             <div className="bg-gray-100" id="more">
                 <div className="flex justify-center items-center p-4 lg:p-20 lg:gap-0 gap-2">
-                    {/*                     
-                    <div>
-                        <img
-                            src={logo}
-                            className="w-36"
-                            alt="Sudek Boys Club logo"
-                        />
-                    </div> */}
                     <div className="lg:w-10/12 text-lg lg:text-xl text-gray-700 p-2 lg:p-6 font-light font-heading text-justify">
                         Sudek Boys Club (SBC) is a Family Club run by a group of
                         Nairobi parents whose aim is to help their sons grow
@@ -213,7 +205,7 @@ const Home = () => {
                                 <GiDramaMasks size={40} color={colors.orange} />
                             </div>
                             <div className="font-heading text-lg text-gray-700 mb-1">
-                                Drama and Forktales
+                                Drama and Folktales
                             </div>
                             <div className="text-gray-600 text-sm">
                                 Developed around particular topics
@@ -262,10 +254,13 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="lg:h-screen lg:bg-[url('../assets/img/4.webp')] bg-cover">
+            <div className="flex flex-col lg:h-screen lg:bg-[url('../assets/img/4.webp')] bg-cover">
+                <div className="lg:bg-white lg-p-4 bg-transparent">
+                    <Banner label="In their own words," />
+                </div>
                 <div className="flex flex-col lg:flex-row-reverse h-full items-center flex-grow">
                     <div className="text-xl  text-gray-600  font-light font-heading grid grid-flow-row grid-cols-1 p-2 lg:p-6 lg:grid-cols-3 gap-4">
-                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 border shadow">
                             <span className="text-justify">
                                 "The club activities have been very engaging
                                 every Saturday and during school holidays too
@@ -277,7 +272,7 @@ const Home = () => {
                                 - Liz Ngomi, SBC Mum
                             </span>
                         </div>
-                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 border shadow">
                             <span className="text-justify">
                                 "SBC has helped me meet new friends. It has
                                 encouraged me to socialize and connect with
@@ -293,7 +288,7 @@ const Home = () => {
                                 - Peter Jabali, SBC Member
                             </span>
                         </div>
-                        <div className="p-6 flex flex-col bg-white bg-opacity-60 shadow">
+                        <div className="p-6 flex flex-col bg-white bg-opacity-60 border shadow">
                             <span className="text-justify">
                                 "When the idea of SBC came, I didn’t think twice
                                 about having him enrolled. And this, as a

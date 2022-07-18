@@ -16,7 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return Blog::paginate(6);
+        return Blog::orderByDesc('created_at')->paginate(6);
     }
 
     public function showPublished()

@@ -59,17 +59,11 @@ const Activity = ({
                 >
                     {!isFuture(when) ? (
                         <>
-                            <span>
-                                <BsCheck2All size={20} color={colors.white} />
-                            </span>
                             <span>Past</span>
                         </>
                     ) : (
                         <>
-                            <span>
-                                <BsClock size={20} color={colors.white} />
-                            </span>
-                            <span>Future</span>
+                            <span>Upcoming</span>
                         </>
                     )}
                 </div>

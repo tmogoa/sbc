@@ -16,15 +16,15 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return Activity::paginate(6);
+        return Activity::orderByDesc('when')->paginate(6);
     }
 
     public function firstThreeFuture($date){
-        return Activity::where('when', '>', $date)->paginate(3);
+        return Activity::orderByDesc('when')->where('when', '>', $date)->paginate(3);
     }
 
     public function firstThreePast($date){
-        return Activity::where('when', '<', $date)->paginate(3);
+        return Activity::orderByDesc('when')->where('when', '<', $date)->paginate(3);
     }
 
     /**
