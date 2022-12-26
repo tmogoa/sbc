@@ -16,7 +16,7 @@ const ContactUs = () => {
             <div className="flex flex-col h-64 lg:h-[32rem] w-full bg-[url('../assets/img/1.webp')] bg-cover">
                 <Navbar />
                 <div
-                    className="flex-grow flex flex-row items-center p-10 gap-10 text-white bg-gray-800 bg-opacity-70 
+                    className="flex-grow flex flex-row items-center p-10 gap-10 text-white bg-gray-800 bg-opacity-70
         "
                 >
                     <div className="font-heading text-4xl lg:text-7xl lg:w-6/12">
@@ -37,7 +37,7 @@ const ContactUs = () => {
                     <div className="font-heading text-gray-700 text-xl mb-2">
                         Telephone
                     </div>
-                    <div className="text-gray-600">+254 707 700744</div>
+                    <div className="text-gray-600">+254 791 278088</div>
                 </div>
             </div>
 
