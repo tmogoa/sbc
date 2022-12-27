@@ -28,7 +28,7 @@ const About = () => {
                 <>
                     <div className="mb-2">
                         a) The parents need to register by sending an email to
-                        sudek.boysclub@gmail.com and then fill in the
+                        sudek.boysclub@gmail.com or contacting one of the club coordinators and then fill in the
                         registration form that will be sent by a representative
                         of the Club Coordinators.
                     </div>
@@ -57,7 +57,7 @@ const About = () => {
             <div className="flex lg:h-[32rem] flex-col w-full bg-[url('../assets/img/1.webp')] bg-cover">
                 <Navbar />
                 <div
-                    className="flex-grow flex flex-col lg:flex-row gap-4 lg:justify-around items-center p-10 lg:gap-10 text-white bg-gray-800 bg-opacity-70 
+                    className="flex-grow flex flex-col lg:flex-row gap-4 lg:justify-around items-center p-10 lg:gap-10 text-white bg-gray-800 bg-opacity-70
                 "
                 >
                     <div className="font-heading text-4xl lg:text-7xl lg:w-6/12 mb-4 lg:mb-0">
